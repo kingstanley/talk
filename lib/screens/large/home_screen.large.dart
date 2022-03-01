@@ -1,6 +1,12 @@
+import 'dart:io';
+
+import '../../helpers/custom_colors.dart';
+import '../../screens/mobile/chat.screen.dart';
+import '../../screens/mobile/chat_list.dart';
+import '../../widgets/viadrawer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:uzum/screens/mobile/chat.screen.dart';
-import 'package:uzum/screens/mobile/chat_list.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class HomeScreenLarge extends StatefulWidget {
   HomeScreenLarge({Key? key}) : super(key: key);
@@ -17,9 +23,16 @@ class _HomeScreenLargeState extends State<HomeScreenLarge> {
     return Scaffold(
       // backgroundColor: Colors.purple,
       resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        actions: [],
+      ),
+      drawer: kIsWeb
+          ? viaDrawer()
+          : UniversalPlatform.isIOS
+              ? viaIoDrawer()
+              : viaDrawer(),
       body: ConstrainedBox(
-        constraints: BoxConstraints(
-            minHeight: screenHeight * 0.5, minWidth: screenWidth * 0.5),
+        constraints: BoxConstraints(minHeight: 300, minWidth: 250),
         child: Container(
           // width: 1100.0,
           color: Colors.grey.withOpacity(0.5),
@@ -28,7 +41,7 @@ class _HomeScreenLargeState extends State<HomeScreenLarge> {
               Positioned(
                   top: 0,
                   child: Container(
-                    color: Colors.purple,
+                    color: CustomColors.primary,
                     height: screenHeight * 0.2,
                     width: screenWidth,
                   )),
@@ -49,16 +62,16 @@ class _HomeScreenLargeState extends State<HomeScreenLarge> {
                         children: [
                           ConstrainedBox(
                             constraints: BoxConstraints(
-                                maxHeight: screenHeight * 0.9,
-                                maxWidth: screenWidth * 0.30,
-                                minWidth: screenWidth * 0.30),
+                              maxHeight: screenHeight * 0.9,
+                              maxWidth: screenWidth * 0.30,
+                            ),
                             child: _buildLeftSide(screenWidth),
                           ),
                           ConstrainedBox(
                             constraints: BoxConstraints(
-                                maxHeight: screenHeight * 0.9,
-                                maxWidth: screenWidth * 0.60,
-                                minWidth: screenWidth * 0.5),
+                              maxHeight: screenHeight * 0.9,
+                              maxWidth: screenWidth * 0.60,
+                            ),
                             child: ChatScreen(),
                           ),
                         ],
@@ -72,7 +85,7 @@ class _HomeScreenLargeState extends State<HomeScreenLarge> {
     );
   }
 
-  Container _buildLeftSide(double screenWidth) {
+  Widget _buildLeftSide(double screenWidth) {
     return Container(
       // width: screenWidth * 0.30,
 
@@ -127,7 +140,7 @@ class _HomeScreenLargeState extends State<HomeScreenLarge> {
               ],
             ),
           ),
-          Expanded(child: ChatList())
+          Expanded(child: chatList(context))
         ],
       ),
     );

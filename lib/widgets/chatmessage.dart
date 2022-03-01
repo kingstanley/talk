@@ -1,7 +1,7 @@
+import '../helpers/functions.dart';
+import '../models/message.model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:uzum/helpers/functions.dart';
-import 'package:uzum/models/message.model.dart';
 
 class ChatMessage extends StatelessWidget {
   final Message message;
@@ -20,7 +20,7 @@ class ChatMessage extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               borderRadius: BorderRadius.all(Radius.circular(20)),
               child: Container(
-                constraints: isMobile(context)
+                constraints: isMobile()
                     ? BoxConstraints.loose(MediaQuery.of(context).size * 0.8)
                     : BoxConstraints.loose(MediaQuery.of(context).size * 0.5),
                 padding: EdgeInsets.all(10.0),

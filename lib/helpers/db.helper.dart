@@ -1,9 +1,8 @@
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
-import 'package:uzum/models/user.dart';
 
 class DbHelper {
-  String dbPath = "uzumdb";
+  String dbPath = "viadb";
   DatabaseFactory databaseFactory = databaseFactoryIo;
   Future<Database> getDb() async {
     Database db = await databaseFactory.openDatabase(dbPath);

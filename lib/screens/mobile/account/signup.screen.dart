@@ -1,7 +1,8 @@
+import '../providers/account_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uzum/screens/mobile/account/otp.screen.dart';
+import '../screens/mobile/account/otp.screen.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _SignupState extends State<Signup> {
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController codeController = TextEditingController();
-
+  AccountProvider accountProvider = AccountProvider();
   late String _verificationCode;
 
   @override
@@ -122,11 +123,13 @@ class _SignupState extends State<Signup> {
                   onPressed: () {
                     // _verifyPhone(
                     //     "${codeController.text}${phoneController.text}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext ctx) => Otp(
-                                codeController.text, phoneController.text)));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (BuildContext ctx) => Otp(
+                    //             codeController.text, phoneController.text)));
+                    accountProvider.getUser(
+                        "${codeController.text}${phoneController.text}");
                   },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -145,30 +148,30 @@ class _SignupState extends State<Signup> {
 
   _verifyPhone(String phone) async {
     debugPrint(phone);
-    await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: phone,
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await FirebaseAuth.instance
-              .signInWithCredential(credential)
-              .then((value) async {
-            if (value.user != null) {
-              debugPrint('user is logged in');
-            }
-          });
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          debugPrint(e.message);
-        },
-        codeSent: (String verificationID, int? resendToken) {
-          setState(() {
-            _verificationCode = verificationID;
-          });
-        },
-        codeAutoRetrievalTimeout: (String verificationID) {
-          setState(() {
-            _verificationCode = verificationID;
-          });
-        },
-        timeout: Duration(seconds: 60));
+    //  await FirebaseAuth.instance.verifyPhoneNumber(
+    //       phoneNumber: phone,
+    //       verificationCompleted: (PhoneAuthCredential credential) async {
+    //         await FirebaseAuth.instance
+    //             .signInWithCredential(credential)
+    //             .then((value) async {
+    //           if (value.user != null) {
+    //             debugPrint('user is logged in');
+    //           }
+    //         });
+    //       },
+    //       verificationFailed: (FirebaseAuthException e) {
+    //         debugPrint(e.message);
+    //       },
+    //       codeSent: (String verificationID, int? resendToken) {
+    //         setState(() {
+    //           _verificationCode = verificationID;
+    //         });
+    //       },
+    //       codeAutoRetrievalTimeout: (String verificationID) {
+    //         setState(() {
+    //           _verificationCode = verificationID;
+    //         });
+    //       },
+    //       timeout: Duration(seconds: 60));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uzum/screens/mobile/chat.screen.dart';
-import 'package:uzum/screens/mobile/chat_list.dart';
+
+import 'chat_list.dart';
 
 class Conversations extends StatefulWidget {
   static final String routeName = '/';
@@ -23,7 +23,7 @@ class _ConversationsState extends State<Conversations> {
             body: TabBarView(children: [
               Center(child: Text('Camaras')),
               // chatComponent(),
-              ChatList(),
+              chatList(context),
               Center(child: Text('Status')),
               Center(child: Text('Calls'))
             ])));
@@ -32,7 +32,7 @@ class _ConversationsState extends State<Conversations> {
   AppBar _normalBar(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      title: Text("Uzum"),
+      title: Text("via"),
       backgroundColor: Color(0xFF128C7E),
       actions: [
         IconButton(

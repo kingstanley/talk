@@ -1,10 +1,10 @@
-// import 'dart:io';
+//
 
 // import 'package:camera/camera.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_webrtc/flutter_webrtc.dart';
-// import 'package:uzum/helpers/camera.helper.dart';
-// import 'package:uzum/helpers/functions.dart';
+// import '../helpers/camera.helper.dart';
+// import '../helpers/functions.dart';
 
 // class VideoCall extends StatefulWidget {
 //   VideoCall();
@@ -457,71 +457,77 @@ class _MyAppState extends State<VideoCall> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-              top: 0.0,
-              right: 0.0,
-              left: 0.0,
-              bottom: 0.0,
-              child: Container(
-                  width: 500,
-                  height: 300,
+      body: Container(
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+                top: 0.0,
+                right: 0.0,
+                left: 0.0,
+                bottom: 0.0,
+                child: Container(
+                    width: 500,
+                    height: 300,
+                    child: RTCVideoView(
+                      _localRenderer,
+                      objectFit:
+                          RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                    )
+                    // camPreview()
+                    )),
+            Positioned(
+                top: 10.0,
+                right: 10.0,
+                // child: CircleAvatar(
+                //   backgroundColor: Colors.black,
+                child: Container(
+                  width: double.infinity,
                   child: RTCVideoView(
                     _localRenderer,
-                    objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                  ),
+                  // ),
+                  // radius: 100.0,
+                )),
+            Positioned(
+              top: 100,
+              bottom: 0,
+              left: 30,
+              right: 30,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue,
+                    ),
+                    child: IconButton(
+                        onPressed: () {}, icon: Icon(Icons.add_call)),
+                    // color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.call_end),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        //  _localRenderer.dispose();
+                      },
+                    ),
+                    // color: Colors.white,
                   )
-                  // camPreview()
-                  )),
-          Positioned(
-              top: 10.0,
-              right: 10.0,
-              child: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                child: RTCVideoView(
-                  _localRenderer,
-                ),
-                radius: 100.0,
-              )),
-          Positioned(
-            top: 100,
-            bottom: 0,
-            left: 30,
-            right: 30,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.blue,
-                  ),
-                  child:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.add_call)),
-                  // color: Colors.blue,
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.red,
-                  ),
-                  child: IconButton(
-                    icon: Icon(Icons.call_end),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      //  _localRenderer.dispose();
-                    },
-                  ),
-                  // color: Colors.white,
-                )
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

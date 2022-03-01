@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:uzum/helpers/functions.dart';
-import 'package:uzum/helpers/timeago.dart';
-import 'package:uzum/models/chat.model.dart';
-import 'package:uzum/providers/chat_provider.dart';
-import 'package:uzum/screens/mobile/chat.screen.dart';
+import '../helpers/functions.dart';
+import '../helpers/timeago.dart';
+import '../models/chat.model.dart';
+import '../providers/chat_provider.dart';
+import '../screens/mobile/chat.screen.dart';
 
 Widget Conversation(String url, String name, String message, DateTime time,
     bool messageSeen, BuildContext context, int chatIndex) {
@@ -14,9 +15,10 @@ Widget Conversation(String url, String name, String message, DateTime time,
       onTap: () {
         Provider.of<ChatProvider>(context, listen: false)
             .updateChatIndex(chatIndex);
-        if (isMobileScreen(context)) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext ctx) => ChatScreen()));
+        if (isMobile()) {
+          Get.to(ChatScreen());
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (BuildContext ctx) => ChatScreen()));
         }
       },
       child: Padding(

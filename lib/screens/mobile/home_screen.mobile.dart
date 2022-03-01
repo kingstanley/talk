@@ -1,34 +1,64 @@
+import 'dart:io';
+
+import '../../screens/mobile/account/welcome.screen.dart';
+
+import '../../controllers/user.controller.dart';
+import '../../data/chats.dart';
+import '../../helpers/custom_colors.dart';
+import '../../helpers/functions.dart';
+import '../../providers/account_provider.dart';
+import '../../providers/socket_provider.dart';
+import '../../services/socketio_service.dart';
+import '../../widgets/viadrawer.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:uzum/data/chats.dart';
-import 'package:uzum/helpers/custom_colors.dart';
-import 'package:uzum/helpers/functions.dart';
-import 'package:uzum/screens/mobile/chat.screen.dart';
-import 'package:uzum/screens/mobile/chat_list.dart';
+import 'package:get/get.dart';
+
+// import 'package:socket_io_client/socket_io_client.dart';
+
+import 'chat_list.dart';
 
 class HomeScreenMobile extends StatefulWidget {
   static final String routeName = '/';
+
   @override
   _HomeScreenMobileState createState() => _HomeScreenMobileState();
 }
 
 class _HomeScreenMobileState extends State<HomeScreenMobile> {
   bool _showSearchBar = false;
+  // IO.Socket socket = IO.io('http://192.168.42.12:3333');
 
   bool _showCreateBox = false;
+  final UserController userController = Get.find();
+  final SocketProvider socketProvider = SocketProvider();
 
   @override
   void initState() {
+    // Connect to websocket
+    // userController.getAll().then((users) => {});
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // print("user in home screen:  ${userController.user.value.toMap()}");
+    // if (userController.user.value.toMap() == null) {
+    //   // Get.to(Welcome());
+    // }
     return DefaultTabController(
         length: 4,
         initialIndex: 1,
         child: Scaffold(
           // backgroundColor: Color(0xFF128C7E),
           appBar: _showCreateBox ? _searchBar(context) : _normalBar(context),
+          drawer: kIsWeb
+              ? viaDrawer()
+              : Platform.isIOS
+                  ? viaIoDrawer()
+                  : viaDrawer(),
           body: TabBarView(children: [
             Center(child: Text('Camaras')),
             // chatComponent(),
@@ -96,19 +126,24 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
                           ],
                         ),
                       ),
-                      Expanded(child: ChatList())
+                      Expanded(child: chatList(context))
                     ],
                   )
-                : ChatList(),
+                : chatList(context),
             Center(child: Text('Status')),
             Center(child: Text('Calls'))
           ]),
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.purple,
             onPressed: () {
+              debugPrint('socketId: ${userSocket.id}');
               setState(() {
-                if (isMobile(context)) {
+                if (isMobile()) {
                   _showCreateBox = true;
+                  // userSocket.emit('amonline', {
+                  //   "message": 'am online now',
+                  //   "user": userController.user.value.toMap()
+                  // });
                 }
               });
             },
@@ -123,7 +158,7 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
   AppBar _normalBar(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      title: Text("Uzum"),
+      title: Text("Viap"),
       backgroundColor: CustomColors.primary,
       actions: [
         IconButton(
@@ -226,14 +261,3 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
     );
   }
 }
-
-List<String> imageUrls = [
-  "https://randomuser.me/api/portraits/men/11.jpg",
-  "https://randomuser.me/api/portraits/women/60.jpg",
-  "https://randomuser.me/api/portraits/men/13.jpg",
-  "https://randomuser.me/api/portraits/women/17.jpg",
-  "https://randomuser.me/api/portraits/women/52.jpg",
-  "https://randomuser.me/api/portraits/women/33.jpg",
-  "https://randomuser.me/api/portraits/women/23.jpg",
-  "https://randomuser.me/api/portraits/men/03.jpg"
-];

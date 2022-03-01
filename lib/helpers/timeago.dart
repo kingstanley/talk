@@ -3,7 +3,8 @@ String timeAgo(DateTime input) {
 
   if (diff.inDays >= 1) {
     if (diff.inDays > 1 && diff.inDays <= 6) {
-      return weekday[input.weekday];
+      print('week day: ${diff.inDays}');
+      return weekday.elementAt(diff.inDays);
     }
     if (diff.inDays == 1) {
       return 'Yesterday';
