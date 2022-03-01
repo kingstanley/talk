@@ -24,6 +24,7 @@ import 'models/user.dart';
 
 // http://192.168.42.12:3333'
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   // UserController userController = Get.put(UserController());
   // userController.getAll().then((value) {
   //   UserModel user = userController.user.value;
@@ -81,7 +82,6 @@ void main() {
   // else if (WebRTC.platformIsIOS) {
   //   WidgetsFlutterBinding.ensureInitialized();
   // }
-  WidgetsFlutterBinding.ensureInitialized();
 
   // runApp(MyApp());
 

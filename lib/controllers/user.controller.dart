@@ -8,8 +8,6 @@ import '../data/user.dao.dart';
 import '../models/user.dart';
 
 class UserController extends GetxController {
-  var accountService = AccountProvider();
-
   late Rx<UserModel> user;
   late List<UserModel> users;
   UserDao userDB = UserDao();

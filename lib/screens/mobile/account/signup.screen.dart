@@ -1,8 +1,8 @@
-import '../providers/account_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../screens/mobile/account/otp.screen.dart';
+import '../../../providers/account_provider.dart';
+import '../../../screens/mobile/account/otp.screen.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key? key}) : super(key: key);

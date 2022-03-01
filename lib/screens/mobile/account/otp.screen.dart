@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
 
-import '../data/user.dao.dart';
-import '../helpers/functions.dart';
-import '../models/user.dart';
-import '../providers/account_provider.dart';
-import '../providers/socket_provider.dart';
-import '../screens/home_screen.dart';
+import '../../../data/user.dao.dart';
+import '../../../helpers/functions.dart';
+import '../../../models/user.dart';
+import '../../../providers/account_provider.dart';
+import '../../../providers/socket_provider.dart';
+import '../../../screens/home_screen.dart';
+import '../../../screens/mobile/account/otp.screen.dart';
+import '../../../screens/mobile/account/signup.screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pin_put/pin_put.dart';
-import '../screens/mobile/account/otp.screen.dart';
-import '../screens/mobile/account/signup.screen.dart';
 
 class Otp extends StatefulWidget {
   late String code;

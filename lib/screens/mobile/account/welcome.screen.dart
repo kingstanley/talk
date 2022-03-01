@@ -1,13 +1,13 @@
-import '../controllers/user.controller.dart';
-import '../data/user.dao.dart';
-import '../models/user.dart';
-import '../screens/mobile/account/signup.screen.dart';
+import '../../../controllers/user.controller.dart';
+import '../../../data/user.dao.dart';
+import '../../../models/user.dart';
+import '../../../screens/mobile/account/signup.screen.dart';
+import '../../../screens/mobile/account/signup.screen.dart';
+import '../../home_screen.dart';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import '../screens/mobile/account/signup.screen.dart';
 import 'package:get/get.dart';
-
-import '../../home_screen.dart';
 
 class Welcome extends StatefulWidget {
   // Signup({Key? key}) : super(key: key);
@@ -26,6 +26,8 @@ class _WelcomeState extends State<Welcome> {
       if (user.phoneNumber != null) {
         print("user in welcome: ${userController.user.value.phoneNumber}");
         Get.to(HomeScreen());
+      } else {
+        print('user phone not found!');
       }
     });
 

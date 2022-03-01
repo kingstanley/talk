@@ -22,7 +22,7 @@ class AccountProvider extends GetConnect {
           Get.to(Otp('', phone, true));
         }
       }).catchError((onError) {
-        print('Error checking user');
+        print('Error checking user: ' + onError.toString());
       });
   Future<Response> getAllUsers() => get('$apiUrl' + 'api/user/listusers');
   Future<Response> getMessage() => get(apiUrl);
