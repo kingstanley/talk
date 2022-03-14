@@ -4,6 +4,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
+import 'package:sembast_web/sembast_web.dart';
+import 'package:uzum/helpers/functions.dart';
 
 class AppDatabase {
   // Singleton instance
@@ -28,7 +30,7 @@ class AppDatabase {
     // if (_dbOpenCompleter == null) {
     _dbOpenCompleter = Completer();
     // Calling _openDatabase will also complete the completer with database instance
-    _openDatabase();
+    isDesktop() ? _openDatabaseWeb() : _openDatabase();
     // }
     // If the database is already opened, awaiting the future will happen instantly.
     // Otherwise, awaiting the returned future will take some time - until complete() is called
@@ -45,5 +47,14 @@ class AppDatabase {
     final database = await databaseFactoryIo.openDatabase(dbPath);
     // Any code awaiting the Completer's future will now start executing
     _dbOpenCompleter.complete(database);
+  }
+
+  Future _openDatabaseWeb() async {
+    var store = intMapStoreFactory.store();
+    var factory = databaseFactoryWeb;
+
+    // Open the database
+    var db = await factory.openDatabase('viap.db');
+    _dbOpenCompleter.complete(db);
   }
 }
